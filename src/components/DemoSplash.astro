@@ -215,20 +215,24 @@
     .demo-splash-list { gap: 0.875rem; }
   }
   .demo-splash-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.875rem;
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    column-gap: 0.875rem;
+    align-items: center;
     padding: 0.75rem 0.875rem;
     background: white;
     border: 1px solid var(--color-line-soft);
     border-radius: 12px;
   }
+  .demo-splash-list li > div { min-width: 0; }
   .demo-splash-num {
-    flex-shrink: 0;
-    font-family: var(--font-display);
+    grid-column: 1;
+    align-self: center;
+    font-family: var(--font-body);
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
     color: var(--color-coral);
     background: color-mix(in srgb, var(--color-coral) 8%, white);
     border: 1px solid color-mix(in srgb, var(--color-coral) 22%, transparent);
@@ -238,6 +242,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    line-height: 1;
   }
   .demo-splash-list strong {
     display: block;
