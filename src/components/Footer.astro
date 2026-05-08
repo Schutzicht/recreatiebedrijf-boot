@@ -1,0 +1,80 @@
+---
+import Logo from './Logo.astro';
+import { site, navigation } from '../data/site';
+const year = new Date().getFullYear();
+
+const accommodationsNav = navigation.find(n => n.label === 'Accommodaties')?.children ?? [];
+---
+<footer class="relative mt-12 bg-[var(--color-sea-deep)] text-white">
+  <div class="container-x py-16 lg:py-20">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <div class="text-white">
+          <a href="/" class="inline-flex items-center gap-2.5" aria-label="Recreatiebedrijf Boot, naar home">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <circle cx="20" cy="20" r="19" stroke="white" stroke-width="1.4" opacity="0.4"/>
+              <path d="M8 26c2.5-0.6 3.8-1.8 5-3.6 1.2 1.8 2.5 3 5 3.6 2.5-0.6 3.8-1.8 5-3.6 1.2 1.8 2.5 3 5 3.6 2.5-0.6 3.8-1.8 5-3.6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 22l6-10 6 10v2H14z" fill="var(--color-amber)"/>
+              <circle cx="20" cy="14" r="1.6" fill="white"/>
+            </svg>
+            <span class="leading-none">
+              <span class="block text-[0.6rem] tracking-[0.22em] uppercase font-semibold text-[var(--color-amber)]">Sinds 1968</span>
+              <span class="block text-[1.05rem] font-medium tracking-tight" style="font-family: var(--font-display);">Recreatiebedrijf Boot</span>
+            </span>
+          </a>
+        </div>
+        <p class="mt-5 text-white/75 max-w-sm leading-relaxed">{site.shortDescription}</p>
+        <div class="mt-6 space-y-2 text-sm text-white/80">
+          <div>{site.address.street}, {site.address.postal} {site.address.city}</div>
+          <div><a href={site.phoneHref} class="hover:text-white transition-colors">{site.phone}</a></div>
+          <div><a href={site.emailHref} class="hover:text-white transition-colors">{site.email}</a></div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="text-[0.7rem] tracking-[0.18em] uppercase font-semibold text-[var(--color-amber)] mb-4">Verblijven</div>
+        <ul class="space-y-2.5 text-sm">
+          {accommodationsNav.map(c => (
+            <li><a href={c.href} class="text-white/80 hover:text-white transition-colors">{c.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="text-[0.7rem] tracking-[0.18em] uppercase font-semibold text-[var(--color-amber)] mb-4">Op de camping</div>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="/plattegrond" class="text-white/80 hover:text-white transition-colors">Plattegrond</a></li>
+          <li><a href="/fietsverhuur" class="text-white/80 hover:text-white transition-colors">Fietsverhuur</a></li>
+          <li><a href="/broodjesservice" class="text-white/80 hover:text-white transition-colors">Broodjesservice</a></li>
+          <li><a href="/arrangementen" class="text-white/80 hover:text-white transition-colors">Arrangementen</a></li>
+          <li><a href="/omgeving" class="text-white/80 hover:text-white transition-colors">Omgeving</a></li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-4">
+        <div class="text-[0.7rem] tracking-[0.18em] uppercase font-semibold text-[var(--color-amber)] mb-4">Direct boeken of vragen?</div>
+        <p class="text-white/80 text-sm leading-relaxed">
+          Een vraag over beschikbaarheid, een speciale wens of meeloopdag voor de hond? Bel of mail Gertjan en Lisette persoonlijk, wij denken graag mee.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-2.5">
+          <a href="/reserveren" class="btn btn-sm" style="background: var(--color-amber); color: var(--color-sea-deep);">Reserveren</a>
+          <a href="/contact" class="btn btn-sm btn-on-dark">Contact</a>
+        </div>
+        <div class="mt-7 flex items-center gap-3 text-xs text-white/70">
+          <span class="chip chip-dark">ANWB Camping</span>
+          <span class="chip chip-dark">ACSI</span>
+          <span class="chip chip-dark">Zoover</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/55">
+      <div>© {year} Recreatiebedrijf Boot · {site.address.city}, Schouwen-Duiveland</div>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-white transition-colors">Privacyverklaring</a>
+        <a href="#" class="hover:text-white transition-colors">Algemene voorwaarden</a>
+        <a href="#" class="hover:text-white transition-colors">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>

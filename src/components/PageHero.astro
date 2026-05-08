@@ -1,0 +1,27 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  image?: string;
+}
+const {
+  eyebrow,
+  title,
+  description,
+  image = '/images/camping-noordzee.jpg',
+} = Astro.props;
+---
+<section class="relative pt-28 sm:pt-32 lg:pt-40 pb-14 sm:pb-16 lg:pb-20 overflow-hidden bg-mesh-warm">
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-0 opacity-[0.07]" style={`background-image: url(${image}); background-size: cover; background-position: center;`}></div>
+  </div>
+  <div class="container-x">
+    <div class="max-w-3xl" data-reveal>
+      {eyebrow && <span class="eyebrow eyebrow-dark mb-5">{eyebrow}</span>}
+      <h1 class="mt-2 text-balance leading-[1.04] tracking-tight font-display"
+          style="font-size: clamp(2rem, 4.6vw, 4rem); font-weight: 500;">{title}</h1>
+      {description && <p class="mt-5 text-base sm:text-lg text-[var(--color-ink-soft)] max-w-2xl text-pretty leading-relaxed">{description}</p>}
+    </div>
+  </div>
+</section>

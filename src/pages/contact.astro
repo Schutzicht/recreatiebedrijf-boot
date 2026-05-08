@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Layout title="Contact" description="Neem contact op met Recreatiebedrijf Boot in Noordwelle. Persoonlijk antwoord binnen 24 uur.">
+  <PageHero
+    eyebrow="We denken graag mee"
+    title="Contact"
+    description="Heb je een vraag, speciale wens of wil je gewoon even sparren over je vakantie? Bel, mail of stuur een berichtje, wij reageren persoonlijk."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      <div class="grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-7" data-reveal>
+          <div class="card card-elev p-8 lg:p-10">
+            <h2 class="text-2xl lg:text-3xl font-display">Stuur ons een bericht</h2>
+            <form class="mt-7 space-y-5">
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="field-label" for="name">Naam</label>
+                  <input id="name" type="text" class="field" placeholder="Voor- en achternaam"/>
+                </div>
+                <div>
+                  <label class="field-label" for="email">E-mailadres</label>
+                  <input id="email" type="email" class="field" placeholder="je@email.nl"/>
+                </div>
+              </div>
+              <div>
+                <label class="field-label" for="phone">Telefoonnummer (optioneel)</label>
+                <input id="phone" type="tel" class="field" placeholder="06 ..."/>
+              </div>
+              <div>
+                <label class="field-label" for="subject">Onderwerp</label>
+                <select id="subject" class="field">
+                  <option>Beschikbaarheid en reserveren</option>
+                  <option>Caravanstalling</option>
+                  <option>Arrangement</option>
+                  <option>Fietsverhuur of broodjesservice</option>
+                  <option>Iets anders</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for="msg">Bericht</label>
+                <textarea id="msg" rows="6" class="field" placeholder="Vertel ons waarbij we kunnen helpen"></textarea>
+              </div>
+              <button type="button" class="btn btn-coral btn-lg">Verstuur bericht</button>
+            </form>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-5" data-reveal>
+          <div class="space-y-5">
+            <div class="card card-elev p-7">
+              <div class="text-xs uppercase tracking-wider font-semibold text-[var(--color-coral)]">Direct contact</div>
+              <h3 class="text-xl font-display mt-1.5">{site.hosts}</h3>
+              <ul class="mt-5 space-y-4 text-sm">
+                <li class="flex items-start gap-3">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 shrink-0"><path d="M3 4l3-1 1.5 3-1.5 1.5c.8 1.5 2 2.7 3.5 3.5L11 9.5l3 1.5-1 3c-5 0-10-5-10-10z" stroke="var(--color-sea)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                  <a href={site.phoneHref} class="text-[var(--color-sea-deep)] font-medium hover:text-[var(--color-coral)] transition-colors">{site.phone}</a>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 shrink-0"><rect x="2" y="4" width="14" height="10" rx="1.5" stroke="var(--color-sea)" stroke-width="1.5"/><path d="M2 5l7 5 7-5" stroke="var(--color-sea)" stroke-width="1.5"/></svg>
+                  <a href={site.emailHref} class="text-[var(--color-sea-deep)] font-medium hover:text-[var(--color-coral)] transition-colors break-all">{site.email}</a>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="mt-0.5 shrink-0"><path d="M9 1c-3 0-5.5 2.5-5.5 5.5C3.5 11 9 17 9 17s5.5-6 5.5-10.5C14.5 3.5 12 1 9 1z" stroke="var(--color-sea)" stroke-width="1.5" stroke-linejoin="round"/><circle cx="9" cy="6.5" r="2" stroke="var(--color-sea)" stroke-width="1.5"/></svg>
+                  <span class="text-[var(--color-ink-soft)]">{site.address.street}, {site.address.postal} {site.address.city}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card card-elev p-0 overflow-hidden">
+              <div class="aspect-[4/3] bg-[var(--color-mist)]">
+                <iframe
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=3.7720%2C51.7440%2C3.8200%2C51.7740&layer=mapnik&marker=51.7590%2C3.7960"
+                  class="w-full h-full border-0"
+                  loading="lazy"
+                  title="Locatie Recreatiebedrijf Boot"
+                ></iframe>
+              </div>
+              <div class="p-5">
+                <div class="text-sm font-semibold text-[var(--color-sea-deep)]">Onze locatie</div>
+                <div class="text-xs text-[var(--color-ink-mute)] mt-1">Noordwelle, Schouwen-Duiveland · 3 km van Renesse</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Layout>

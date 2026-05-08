@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingCTA from '../components/FloatingCTA.astro';
+import DemoSplash from '../components/DemoSplash.astro';
+import DemoBadge from '../components/DemoBadge.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = 'Recreatiebedrijf Boot: gastvrije familiecamping in Noordwelle, vlakbij Renesse en het Noordzeestrand. Mini-camping, appartementen, safaritent, vakantiehuisjes en caravanstalling op Schouwen-Duiveland.',
+} = Astro.props;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" />
+    <title>{title} · Recreatiebedrijf Boot</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta name="theme-color" content="#1F4E5F" />
+    <script is:inline>
+      function initReveal() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.querySelectorAll('[data-reveal]').forEach(el => el.dataset.revealed = 'true');
+          return;
+        }
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.dataset.revealed = 'true';
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+        document.querySelectorAll('[data-reveal]:not([data-revealed])').forEach(el => obs.observe(el));
+      }
+      function initHeader() {
+        const header = document.querySelector('.smart-header');
+        if (!header) return;
+        const onScroll = () => {
+          header.dataset.scrolled = window.scrollY > 12 ? 'true' : 'false';
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+      function initMobileMenu() {
+        const btn = document.querySelector('[data-menu-toggle]');
+        const menu = document.querySelector('[data-mobile-menu]');
+        if (!btn || !menu) return;
+        const close = () => {
+          menu.dataset.open = 'false';
+          btn.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        };
+        btn.addEventListener('click', () => {
+          const isOpen = menu.dataset.open === 'true';
+          if (isOpen) {
+            close();
+          } else {
+            menu.dataset.open = 'true';
+            btn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+          }
+        });
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+      }
+      function initAll() {
+        initReveal();
+        initHeader();
+        initMobileMenu();
+      }
+      if (document.readyState !== 'loading') initAll();
+      else document.addEventListener('DOMContentLoaded', initAll);
+    </script>
+  </head>
+  <body>
+    <Header currentPath={path} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <FloatingCTA />
+    <DemoBadge />
+    <DemoSplash />
+  </body>
+</html>

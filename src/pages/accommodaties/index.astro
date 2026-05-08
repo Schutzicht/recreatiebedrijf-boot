@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import AccommodationCard from '../../components/AccommodationCard.astro';
+import { accommodations } from '../../data/site';
+---
+<Layout title="Accommodaties" description="Mini-camping, appartementen, safaritent, vakantiehuisjes en caravanstalling op Schouwen-Duiveland.">
+  <PageHero
+    eyebrow="Onze verblijven"
+    title="Voor ieder gezin de juiste plek aan de Zeeuwse kust."
+    description="Kamperen, glampen of een appartement met alle gemakken: zes manieren om bij ons te verblijven, allemaal met dezelfde rust en ruimte."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal>
+        {accommodations.map(a => (
+          <AccommodationCard {...a} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-[var(--color-sand-soft)] border-y border-[var(--color-line)]">
+    <div class="container-x">
+      <div class="grid lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-6" data-reveal>
+          <span class="eyebrow mb-4">Niet weten welk verblijf?</span>
+          <h2 class="text-4xl lg:text-5xl text-balance">We adviseren je graag persoonlijk.</h2>
+          <p class="mt-5 text-[var(--color-ink-soft)] text-lg max-w-xl">
+            Twijfel je tussen kamperen of een appartement, of zoek je een verblijf voor een grote familie? Stuur ons een berichtje. Wij kennen ieder hoekje van de camping en denken mee.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/contact" class="btn btn-primary">Stel een vraag</a>
+            <a href="/reserveren" class="btn btn-outline">Direct reserveren</a>
+          </div>
+        </div>
+        <div class="lg:col-span-6" data-reveal>
+          <div class="card card-elev p-8 bg-white">
+            <div class="text-xs uppercase tracking-wider font-semibold text-[var(--color-coral)]">Goed om te weten</div>
+            <h3 class="text-2xl font-display mt-2">Standaard inbegrepen</h3>
+            <ul class="mt-5 space-y-3.5 text-sm text-[var(--color-ink-soft)]">
+              <li class="flex items-start gap-3">
+                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[var(--color-coral)] shrink-0"></span>
+                Gratis wifi op het hele terrein
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[var(--color-coral)] shrink-0"></span>
+                Twee verwarmde sanitairgebouwen op het kampeerveld
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[var(--color-coral)] shrink-0"></span>
+                Cameratoezicht en aparte autoparking
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[var(--color-coral)] shrink-0"></span>
+                Honden welkom (in overleg)
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[var(--color-coral)] shrink-0"></span>
+                Laadpalen voor elektrische auto's
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

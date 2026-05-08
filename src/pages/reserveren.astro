@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { accommodations } from '../data/site';
+---
+<Layout title="Reserveren" description="Reserveer jouw verblijf op Recreatiebedrijf Boot in Noordwelle. Mini-camping, appartementen, safaritent of vakantiehuisje.">
+  <PageHero
+    eyebrow="Plan je verblijf"
+    title="Reserveren bij Boot."
+    description="In de live versie zie je hier direct welke plekken vrij zijn. In deze demo tonen we de aanvraagflow zodat je het idee krijgt."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      <div class="grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-8" data-reveal>
+          <div class="card card-elev p-8 lg:p-10">
+            <h2 class="text-2xl lg:text-3xl font-display">Vraag je verblijf aan</h2>
+            <p class="mt-2 text-[var(--color-ink-soft)] text-[15px]">Vul je gegevens in, dan reageren wij binnen 24 uur met een persoonlijk voorstel.</p>
+
+            <form class="mt-8 space-y-6">
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="field-label" for="from">Aankomst</label>
+                  <input id="from" type="date" class="field"/>
+                </div>
+                <div>
+                  <label class="field-label" for="to">Vertrek</label>
+                  <input id="to" type="date" class="field"/>
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-3 gap-5">
+                <div>
+                  <label class="field-label" for="adults">Volwassenen</label>
+                  <select id="adults" class="field">
+                    <option>1</option><option selected>2</option><option>3</option><option>4</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="kids">Kinderen</label>
+                  <select id="kids" class="field">
+                    <option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for="dogs">Honden</label>
+                  <select id="dogs" class="field">
+                    <option selected>0</option><option>1</option><option>2</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label">Welk verblijf?</label>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {accommodations.map(a => (
+                    <label class="flex items-start gap-3 p-3 rounded-xl border border-[var(--color-line)] hover:border-[var(--color-sea)] cursor-pointer transition-colors">
+                      <input type="checkbox" class="mt-1 accent-[var(--color-sea)]"/>
+                      <span class="text-sm">
+                        <span class="block font-semibold text-[var(--color-sea-deep)]">{a.name}</span>
+                        <span class="block text-xs text-[var(--color-ink-mute)] mt-0.5">{a.priceFrom}</span>
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label class="field-label" for="name">Naam</label>
+                  <input id="name" type="text" class="field" placeholder="Voor- en achternaam"/>
+                </div>
+                <div>
+                  <label class="field-label" for="email">E-mailadres</label>
+                  <input id="email" type="email" class="field" placeholder="je@email.nl"/>
+                </div>
+              </div>
+
+              <div>
+                <label class="field-label" for="msg">Bijzonderheden of vraag</label>
+                <textarea id="msg" rows="4" class="field" placeholder="Bijvoorbeeld een voorkeursplek of speciale wens"></textarea>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3 pt-2">
+                <button type="button" class="btn btn-coral btn-lg">Verstuur aanvraag</button>
+                <span class="text-xs text-[var(--color-ink-mute)]">We reageren binnen 24 uur, ook in het weekend.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <aside class="lg:col-span-4" data-reveal>
+          <div class="lg:sticky lg:top-28 space-y-5">
+            <div class="card card-elev p-7">
+              <div class="text-xs uppercase tracking-wider font-semibold text-[var(--color-coral)]">Liever even bellen?</div>
+              <h3 class="text-xl font-display mt-1.5">Persoonlijk advies</h3>
+              <p class="mt-3 text-sm text-[var(--color-ink-soft)]">
+                Bel direct met Gertjan of Lisette. We denken graag mee over de juiste plek en periode.
+              </p>
+              <a href="tel:+31610430045" class="btn btn-primary w-full mt-5">+31 6 10 43 00 45</a>
+            </div>
+
+            <div class="card card-elev p-7 bg-[var(--color-mist)] border-[var(--color-mist-deep)]">
+              <div class="text-xs uppercase tracking-wider font-semibold text-[var(--color-sea-deep)]">In de live versie</div>
+              <h3 class="text-lg font-display mt-1.5">Real-time beschikbaarheid</h3>
+              <p class="mt-3 text-sm text-[var(--color-ink-soft)]">
+                In de productieversie koppelen we hier het boekingssysteem aan, zodat gasten direct kunnen zien welke plekken op welke datum nog vrij zijn.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const highlights = [
+  {
+    title: 'Renesse',
+    distance: '3 km',
+    desc: 'Levendig kustdorp met restaurants, terrasjes en gezellige winkeltjes. Op de fiets ben je er in tien minuten.',
+    icon: 'beach',
+  },
+  {
+    title: 'Noordzeestrand',
+    distance: '3 km',
+    desc: 'Ruim, schoon en eindeloos. Ideaal voor strandwandelingen, zwemmen en de zonsondergang vanaf het duin.',
+    icon: 'wave',
+  },
+  {
+    title: 'Brouwersdam',
+    distance: '10 km',
+    desc: 'Surf-paradijs aan de ene kant, het rustige Grevelingenmeer aan de andere. Bootverhuur en vissteigers.',
+    icon: 'wind',
+  },
+  {
+    title: 'Oosterscheldekering & Neeltje Jans',
+    distance: '15 km',
+    desc: 'De Deltawerken van dichtbij, met museum en zicht over de Oosterschelde: Nationaal Park.',
+    icon: 'bridge',
+  },
+  {
+    title: 'Zierikzee',
+    distance: '20 km',
+    desc: 'Historische binnenstad met haventjes, smalle straatjes en gezellige terrassen.',
+    icon: 'town',
+  },
+  {
+    title: 'Watersnoodmuseum',
+    distance: '25 km',
+    desc: 'Indrukwekkend museum over de watersnoodramp van 1953: een stuk geschiedenis dat je niet mag missen.',
+    icon: 'museum',
+  },
+];
+
+const activities = [
+  ['Fietsen', 'Honderden kilometers veilige fietspaden over het hele eiland en zelfs naar buureilanden via veerponten.'],
+  ['Wandelen', 'Duingebieden, polders, stranden en bossen: voor elke conditie een geschikte route.'],
+  ['Surfen & watersport', 'Brouwersdam is een hotspot voor windsurfers, kitesurfers en supliefhebbers.'],
+  ['Paardrijden', 'Twee maneges in de buurt voor strand- en bostochten.'],
+  ['Vissen & duiken', 'De Oosterschelde is een topbestemming voor sportduikers en hengelvissers.'],
+  ['Vogelreservaat Prunje', 'Op fietsafstand: een wetland vol kustvogels en zeldzame soorten.'],
+];
+---
+<Layout title="De omgeving" description="Wat is er te doen rondom Recreatiebedrijf Boot? Strand, Renesse, Brouwersdam, Zierikzee: alles binnen handbereik.">
+  <PageHero
+    eyebrow="Schouwen-Duiveland"
+    title="Een eiland vol ontdekken, vlak voor onze deur."
+    description="Van het Noordzeestrand tot het Watersnoodmuseum, en van Renesse tot Zierikzee: onze plek is een uitvalsbasis waar je in tien minuten overal bent."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal>
+        {highlights.map(h => (
+          <div class="card card-elev">
+            <div class="flex items-center justify-between mb-4">
+              <span class="chip chip-coral">{h.distance}</span>
+            </div>
+            <h3 class="text-2xl font-display">{h.title}</h3>
+            <p class="mt-3 text-[15px] text-[var(--color-ink-soft)] leading-relaxed">{h.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-[var(--color-sand-soft)] border-y border-[var(--color-line)]">
+    <div class="container-x">
+      <div class="grid lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-5" data-reveal>
+          <span class="dateline mb-5">Wat je hier kunt doen</span>
+          <h2 class="text-balance leading-[1.05] tracking-tight font-display"
+              style="font-size: clamp(2rem, 4.4vw, 3.25rem); font-weight: 500;">
+            Buiten zijn met
+            <span class="italic-display text-[var(--color-coral)]" style="font-weight: 500;">de tijd om je heen</span>.
+          </h2>
+          <p class="mt-5 text-[var(--color-ink-soft)] text-base sm:text-lg max-w-md">
+            We delen graag onze tips. Bij de receptie liggen routekaarten klaar en weten we precies waar de minder bekende plekjes zijn.
+          </p>
+
+          <div class="mt-10 hidden lg:block">
+            <div class="polaroid rotate-right max-w-[340px]">
+              <div class="polaroid-img aspect-[4/3]">
+                <img src="/images/sfeer.jpg" alt="Zonsondergang aan de Brouwersdam, in de buurt van Recreatiebedrijf Boot" loading="lazy"/>
+              </div>
+              <div class="polaroid-caption">Brouwersdam bij zonsondergang</div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-7" data-reveal>
+          <ul class="divide-y divide-[var(--color-line)]">
+            {activities.map(([t, d]) => (
+              <li class="py-5 grid sm:grid-cols-4 gap-4">
+                <div class="sm:col-span-1">
+                  <div class="text-base font-semibold text-[var(--color-sea-deep)] font-display">{t}</div>
+                </div>
+                <div class="sm:col-span-3 text-[15px] text-[var(--color-ink-soft)]">{d}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x">
+      <div class="rounded-3xl p-10 lg:p-14 bg-mesh-sea text-white relative overflow-hidden" data-reveal>
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <span class="eyebrow eyebrow-light mb-5">Tip van Gertjan & Lisette</span>
+            <h2 class="text-white text-3xl lg:text-4xl text-balance">"Op een rustige avond fiets je via de duinen naar de Brouwersdam voor de zonsondergang. Onze favoriete plek."</h2>
+          </div>
+          <div class="lg:text-right">
+            <a href="/arrangementen" class="btn btn-on-dark btn-lg">Bekijk arrangementen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
