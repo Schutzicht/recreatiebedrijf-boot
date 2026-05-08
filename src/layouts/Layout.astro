@@ -57,31 +57,9 @@ const path = Astro.url.pathname;
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
-      function initMobileMenu() {
-        const btn = document.querySelector('[data-menu-toggle]');
-        const menu = document.querySelector('[data-mobile-menu]');
-        if (!btn || !menu) return;
-        const close = () => {
-          menu.dataset.open = 'false';
-          btn.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        };
-        btn.addEventListener('click', () => {
-          const isOpen = menu.dataset.open === 'true';
-          if (isOpen) {
-            close();
-          } else {
-            menu.dataset.open = 'true';
-            btn.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden';
-          }
-        });
-        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-      }
       function initAll() {
         initReveal();
         initHeader();
-        initMobileMenu();
       }
       if (document.readyState !== 'loading') initAll();
       else document.addEventListener('DOMContentLoaded', initAll);
