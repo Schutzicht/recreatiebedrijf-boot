@@ -1,35 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* Boot brand — warm Zeeuws palet */
-  --color-sea: #1F4E5F;          /* diepe zee/kompas */
-  --color-sea-deep: #143945;     /* nacht boven de zee */
-  --color-sea-soft: #2E7390;     /* helder zeewater */
-  --color-mist: #DDE9ED;         /* ochtendmist boven de polder */
-  --color-mist-deep: #C5D8DF;    /* mist met diepte */
+  /* Boot huisstijl — gebaseerd op logo (blauw "Recreatiebedrijf" + groen "Boot") */
+  --color-brand-blue: #2D80CB;       /* logo-blauw "Recreatiebedrijf" */
+  --color-brand-blue-deep: #1F5F9D;  /* donkere variant, voor tekst en hover */
+  --color-brand-blue-soft: #5DA0DA;  /* lichte variant */
+  --color-brand-green: #5BBE36;      /* logo-groen "Boot" */
+  --color-brand-green-deep: #3F8E20; /* donkere variant voor hover/AA */
+  --color-brand-green-bright: #6FCC4A;
 
-  --color-dune: #B89968;         /* duingras-bruin */
-  --color-sand: #E8DCC4;         /* duinzand */
-  --color-sand-soft: #F2EADB;    /* zacht zand */
+  /* Aliases zodat bestaande code blijft werken, met huisstijl-waarden */
+  --color-sea: var(--color-brand-blue-deep);
+  --color-sea-deep: #143E68;
+  --color-sea-soft: var(--color-brand-blue);
+  --color-mist: #DEEAF6;             /* ochtendmist, met blauwe ondertoon */
+  --color-mist-deep: #C1D6EA;
 
-  /* Accent — warme zonsondergang aan de Brouwersdam */
-  --color-coral: #C95F3A;        /* AA-contrast op cream */
-  --color-coral-bright: #E07856;
-  --color-coral-deep: #9A3F22;
-  --color-amber: #F2C97C;        /* zonlicht op het tentdoek */
+  --color-dune: #B89968;
+  --color-sand: #E8DCC4;
+  --color-sand-soft: #F4ECD8;
 
-  /* Neutrals — papier en inkt met zandtoon */
-  --color-paper: #FBF7EE;        /* warme cream achtergrond */
+  /* Accent — primair groen uit logo (was coral) */
+  --color-coral: var(--color-brand-green-deep);  /* AA-veilige groen voor tekst-accenten */
+  --color-coral-bright: var(--color-brand-green);
+  --color-coral-deep: #2D6E16;
+  --color-amber: #F2C97C;
+
+  /* Neutrals — papier en inkt */
+  --color-paper: #FBF7EE;
   --color-surface: #FFFFFF;
-  --color-ink: #1A2530;          /* donkere zee-inkt */
-  --color-ink-soft: #4A5563;
+  --color-ink: #16263A;              /* donker blauw-zwart */
+  --color-ink-soft: #475569;
   --color-ink-mute: #6B7585;
-  --color-line: #E5DECC;         /* zandige lijn */
-  --color-line-soft: #F0E9D8;
+  --color-line: #E3DCC8;
+  --color-line-soft: #EFE8D6;
 
-  /* Status — voor reviews en beschikbaarheid */
-  --color-leaf: #5C7C4A;         /* duingras */
-  --color-leaf-soft: #8FAA7A;
+  /* Status */
+  --color-leaf: var(--color-brand-green-deep);
+  --color-leaf-soft: #8FCB7A;
 
   /* Fonts */
   --font-display: "Fraunces", Georgia, serif;
