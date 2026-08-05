@@ -16,12 +16,12 @@ import { arrangementen } from '../data/site';
         {arrangementen.map((a, idx) => (
           <article id={a.slug} class="card card-elev p-0 overflow-hidden">
             <div class={`grid lg:grid-cols-2 gap-0 ${idx % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-              <div class="aspect-[5/4] lg:aspect-auto bg-[var(--color-mist)] img-zoom">
-                <img src={a.image} alt={a.name} class="w-full h-full object-cover"/>
+              <div class="relative img-zoom bg-[var(--color-mist)] aspect-[5/4] lg:aspect-auto lg:min-h-[420px]">
+                <img src={a.image} alt={a.name} loading="lazy" class="lg:absolute lg:inset-0 w-full h-full object-cover"/>
               </div>
               <div class="p-8 lg:p-12">
                 <div class="text-xs uppercase tracking-wider font-semibold text-[var(--color-coral)]">{a.period}</div>
-                <h2 class="text-3xl lg:text-4xl font-display mt-3">{a.name}</h2>
+                <h2 class="heading-lg mt-3">{a.name}</h2>
                 <p class="mt-4 text-[15px] text-[var(--color-ink-soft)] leading-relaxed">{a.description}</p>
 
                 <h3 class="text-sm font-semibold text-[var(--color-sea-deep)] mt-7 mb-3 uppercase tracking-wider">Inclusief</h3>

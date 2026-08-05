@@ -3,18 +3,45 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingCTA from '../components/FloatingCTA.astro';
-import DemoSplash from '../components/DemoSplash.astro';
-import DemoBadge from '../components/DemoBadge.astro';
 
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
 }
 const {
   title,
   description = 'Recreatiebedrijf Boot: gastvrije familiecamping in Noordwelle, vlakbij Renesse en het Noordzeestrand. Mini-camping, appartementen, safaritent, vakantiehuisjes en caravanstalling op Schouwen-Duiveland.',
+  ogImage = '/images/hero-camping.webp',
+  ogType = 'website',
 } = Astro.props;
 const path = Astro.url.pathname;
+const site = Astro.site ?? new URL('https://demo-recreatiebedrijf-boot.vercel.app');
+const canonical = new URL(path, site).href;
+const ogImageAbs = new URL(ogImage, site).href;
+
+const campgroundSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Campground',
+  name: 'Recreatiebedrijf Boot',
+  description: 'Gastvrije familiecamping in Noordwelle op Schouwen-Duiveland, met mini-camping, appartementen, safaritent, vakantiehuisjes en caravanstalling. Op 3 km van het Noordzeestrand en Renesse.',
+  url: site.href,
+  telephone: '+31610430045',
+  email: 'info@recreatiebedrijfboot.nl',
+  image: ogImageAbs,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Lokkershofweg 7',
+    postalCode: '4326 SE',
+    addressLocality: 'Noordwelle',
+    addressRegion: 'Zeeland',
+    addressCountry: 'NL',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 51.7152644, longitude: 3.797878 },
+  petsAllowed: true,
+  founder: { '@type': 'Person', name: 'Gertjan en Lisette' },
+};
 ---
 <!doctype html>
 <html lang="nl">
@@ -24,14 +51,23 @@ const path = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" />
     <title>{title} · Recreatiebedrijf Boot</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="nl_NL" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:site_name" content="Recreatiebedrijf Boot" />
     <meta name="theme-color" content="#1F4E5F" />
+    {path === '/' && (
+      <script type="application/ld+json" set:html={JSON.stringify(campgroundSchema)} />
+    )}
+    <slot name="head" />
     <script is:inline>
       function initReveal() {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -57,9 +93,37 @@ const path = Astro.url.pathname;
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
+      function initMailtoForms() {
+        document.querySelectorAll('[data-mailto]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var to = btn.getAttribute('data-mailto');
+            var subject = btn.getAttribute('data-subject') || 'Bericht via website';
+            var form = btn.closest('form');
+            var lines = [];
+            if (form) {
+              form.querySelectorAll('input, select, textarea').forEach(function (el) {
+                if (el.type === 'hidden' || el.type === 'submit' || el.type === 'button') return;
+                var wrap = el.closest('label');
+                var labelEl = el.id ? form.querySelector('label[for="' + el.id + '"]') : null;
+                var label = labelEl ? labelEl.textContent.trim()
+                  : (wrap ? wrap.textContent.trim().replace(/\s+/g, ' ') : (el.getAttribute('placeholder') || el.name || ''));
+                if (el.type === 'checkbox' || el.type === 'radio') {
+                  if (el.checked && label) lines.push('- ' + label);
+                  return;
+                }
+                var val = (el.value || '').trim();
+                if (val) lines.push(label + ': ' + val);
+              });
+            }
+            var body = 'Beste Gertjan en Lisette,\n\n' + (lines.length ? lines.join('\n') : '') + '\n\nMet vriendelijke groet,';
+            window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+          });
+        });
+      }
       function initAll() {
         initReveal();
         initHeader();
+        initMailtoForms();
       }
       if (document.readyState !== 'loading') initAll();
       else document.addEventListener('DOMContentLoaded', initAll);
@@ -72,7 +136,5 @@ const path = Astro.url.pathname;
     </main>
     <Footer />
     <FloatingCTA />
-    <DemoBadge />
-    <DemoSplash />
   </body>
 </html>

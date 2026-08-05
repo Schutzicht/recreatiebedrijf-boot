@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 
 const accommodationsNav = navigation.find(n => n.label === 'Accommodaties')?.children ?? [];
 ---
-<footer class="relative mt-12 bg-[var(--color-sea-deep)] text-white">
+<footer class="relative bg-[var(--color-sea-deep)] text-white">
   <div class="container-x py-16 lg:py-20">
     <div class="grid lg:grid-cols-12 gap-10">
       <div class="lg:col-span-4">
@@ -45,6 +45,7 @@ const accommodationsNav = navigation.find(n => n.label === 'Accommodaties')?.chi
           <li><a href="/broodjesservice" class="text-white/80 hover:text-white transition-colors">Broodjesservice</a></li>
           <li><a href="/arrangementen" class="text-white/80 hover:text-white transition-colors">Arrangementen</a></li>
           <li><a href="/omgeving" class="text-white/80 hover:text-white transition-colors">Omgeving</a></li>
+          <li><a href="/blog" class="text-white/80 hover:text-white transition-colors">Blog</a></li>
         </ul>
       </div>
 
@@ -67,11 +68,42 @@ const accommodationsNav = navigation.find(n => n.label === 'Accommodaties')?.chi
 
     <div class="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-white/55">
       <div>© {year} Recreatiebedrijf Boot · {site.address.city}, Schouwen-Duiveland</div>
-      <div class="flex items-center gap-4">
+      <div class="flex flex-wrap items-center gap-4">
         <a href="#" class="hover:text-white transition-colors">Privacyverklaring</a>
         <a href="#" class="hover:text-white transition-colors">Algemene voorwaarden</a>
-        <a href="#" class="hover:text-white transition-colors">Cookies</a>
+        <span class="hidden sm:inline-block w-px h-3 bg-white/15"></span>
+        <span>Made by <a href="https://agensea.nl" target="_blank" rel="noopener" class="agensea-credit">Agensea</a></span>
       </div>
     </div>
   </div>
+
+  <style>
+    .agensea-credit {
+      color: var(--color-brand-green);
+      font-weight: 700;
+      animation: agenseaGlow 2.4s ease-in-out infinite;
+      transition: color 200ms ease;
+    }
+    .agensea-credit:hover {
+      color: var(--color-brand-green-bright);
+    }
+    @keyframes agenseaGlow {
+      0%, 100% {
+        text-shadow:
+          0 0 6px color-mix(in srgb, var(--color-brand-green) 45%, transparent);
+      }
+      50% {
+        text-shadow:
+          0 0 10px var(--color-brand-green),
+          0 0 26px color-mix(in srgb, var(--color-brand-green) 85%, transparent),
+          0 0 44px color-mix(in srgb, var(--color-brand-green) 45%, transparent);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .agensea-credit {
+        animation: none;
+        text-shadow: 0 0 14px color-mix(in srgb, var(--color-brand-green) 70%, transparent);
+      }
+    }
+  </style>
 </footer>

@@ -38,6 +38,7 @@ export const navigation = [
   { label: 'Plattegrond', href: '/plattegrond' },
   { label: 'Omgeving', href: '/omgeving' },
   { label: 'Arrangementen', href: '/arrangementen' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -50,7 +51,15 @@ export const accommodations = [
     sizeRange: '150 – 370 m² per plek',
     priceFrom: 'Vanaf € 22 p.n.',
     eyebrow: 'voor wie ruimte zoekt',
-    image: '/images/luchtfoto-5.jpg',
+    image: '/images/mini-camping.webp',
+    gallery: [
+      '/images/gal-minicamping-1.webp',
+      '/images/gal-minicamping-2.webp',
+      '/images/gal-minicamping-3.webp',
+      '/images/gal-minicamping-4.webp',
+      '/images/gal-minicamping-5.webp',
+      '/images/gal-minicamping-6.webp',
+    ],
     badges: ['Eigen 10A stroom', 'Watertap met afvoer', 'Honden welkom'],
     description:
       'Twee gezellige velden met in totaal genoeg ruimte om écht weg te zijn. Op veld 1 vind je 10 royale kampeerplaatsen van zo\'n 150 m², op veld 2 staan plekken van gemiddeld 370 m². Iedere plek heeft een eigen wateraansluiting met afvoer en een 10A stroompunt. Wifi is gratis.',
@@ -73,7 +82,12 @@ export const accommodations = [
     sizeRange: '7 appartementen',
     priceFrom: 'Vanaf € 60 p.n.',
     eyebrow: 'onder een eigen dak',
-    image: '/images/luchtfoto-2.jpg',
+    image: '/images/appartementen.webp',
+    gallery: [
+      '/images/gal-appartementen-1.webp',
+      '/images/gal-appartementen-2.webp',
+      '/images/gal-appartementen-3.webp',
+    ],
     badges: ['Eigen keuken', 'Badkamer met douche', 'Wifi gratis'],
     description:
       'Onze zeven appartementen heten Alikruik, Krab, Kreeft, Mossel, Oester, Wulk en Zeester. Vier ervan zijn voor twee personen, drie voor maximaal vijf. Elk appartement heeft een eigen keuken, woonkamer met zithoek, badkamer met douche en LCD-tv. Verwarming via gas of cv.',
@@ -95,7 +109,12 @@ export const accommodations = [
     sizeRange: '45 m² + 20 m² veranda',
     priceFrom: 'Vanaf € 55 p.n.',
     eyebrow: 'slapen onder doek',
-    image: '/images/luchtfoto.jpg',
+    image: '/images/safaritent.webp',
+    gallery: [
+      '/images/gal-safaritent-1.webp',
+      '/images/gal-safaritent-2.webp',
+      '/images/gal-safaritent-3.webp',
+    ],
     badges: ['Tweepersoons hemelbed', 'Pelletkachel', 'Veranda 20 m²'],
     description:
       'Slapen onder doek, maar dan luxe. Onze safaritent staat op een houten vlonder en biedt plek aan 4 tot 5 personen, ideaal voor gezinnen of een stel met kinderen. Binnen vind je een tweepersoons hemelbed, een stapelbed en een eenpersoonsbed. Voor frisse avonden is er een pelletkachel.',
@@ -117,7 +136,7 @@ export const accommodations = [
     sizeRange: 'Vrijstaand huisje',
     priceFrom: 'Op aanvraag',
     eyebrow: 'tot rust komen',
-    image: '/images/luchtfoto-4.jpg',
+    image: '/images/huisje-weltevreden.webp',
     badges: ['Eigen tuin', 'Volledig ingericht', 'Rustig gelegen'],
     description:
       'Huisje Weltevreden is precies wat de naam zegt: een plek om even niets te hoeven. Vrijstaand, eigen tuin, ruim bemeten woonkamer en een goed uitgeruste keuken. Perfect voor gezinnen die in alle rust willen genieten van Schouwen-Duiveland.',
@@ -139,7 +158,7 @@ export const accommodations = [
     sizeRange: 'Vakantiewoning',
     priceFrom: 'Op aanvraag',
     eyebrow: 'aan de duinrand',
-    image: '/images/luchtfoto-3.jpg',
+    image: '/images/duinweg.webp',
     badges: ['Aan de duinrand', '3 km van strand', 'Tuin op zuid'],
     description:
       'Onze vakantiewoning aan de Duinweg 119-4 ligt direct aan de duinrand, dichtbij Renesse. Ideaal voor een actieve vakantie: het strand bereik je in vijf minuten, fietsen en wandelen begint letterlijk voor de deur.',
@@ -161,7 +180,7 @@ export const accommodations = [
     sizeRange: 'Per m²',
     priceFrom: 'Vanaf € 20 p.m²',
     eyebrow: 'winter en zomer',
-    image: '/images/sanitair.jpg',
+    image: '/images/caravanstalling.webp',
     badges: ['Overdekt', 'Disselruimte inbegrepen', 'Fietsendrager OK'],
     description:
       'In onze schuren stallen we caravans, boten en andere vrijetijdsvoertuigen tot 8 meter. Het tarief is inclusief disselruimte en fietsendrager, zodat je alles op één plek hebt staan.',
@@ -214,7 +233,7 @@ export const arrangementen = [
     name: 'Kunstschouw',
     period: 'Eind augustus',
     short: 'Tien dagen kunst en cultuur door heel Schouwen-Duiveland.',
-    image: '/images/camping-noordzee.jpg',
+    image: '/images/arr-kunstschouw.webp',
     description:
       'Tijdens de Kunstschouw openen ateliers, kerken en musea hun deuren voor kunstliefhebbers. Verblijf bij ons en fiets dagelijks naar nieuwe routes en exposities. Wij stellen graag een persoonlijke route voor je samen.',
     inclusief: [
@@ -229,7 +248,7 @@ export const arrangementen = [
     name: 'Stroâ',
     period: '18 februari t/m 18 maart',
     short: 'De oudste paardentraditie van Zeeland, vlak voor onze deur.',
-    image: '/images/sfeer.jpg',
+    image: '/images/arr-stroa.webp',
     description:
       'Stroâ is een eeuwenoude traditie waarbij paarden in galop over het strand racen. Een spektakel dat je gezien moet hebben. Ons arrangement combineert een verblijf met een gegidste wandeling en een uitgebreid Zeeuws ontbijt.',
     inclusief: [

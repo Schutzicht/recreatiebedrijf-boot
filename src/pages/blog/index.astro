@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+
+const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
+const posts = Object.entries(modules)
+  .map(([path, mod]: [string, any]) => ({
+    slug: path.split('/').pop()!.replace('.md', ''),
+    ...mod.frontmatter,
+  }))
+  .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+function fmtDate(d: string) {
+  return new Date(d).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+<Layout
+  title="Blog"
+  description="Tips en verhalen van Recreatiebedrijf Boot: wat te doen op Schouwen-Duiveland, kamperen aan de Zeeuwse kust en nieuws van de camping."
+>
+  <PageHero
+    eyebrow="Tips van de familie"
+    title="Blog: kamperen en genieten op Schouwen-Duiveland."
+    description="Wij wonen en werken hier het hele jaar. Op deze pagina delen we wat we zelf aan gasten vertellen: de mooiste plekken, praktische tips en nieuws van de camping."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      {posts.length === 0 ? (
+        <p class="text-[var(--color-ink-soft)]">Binnenkort verschijnen hier onze eerste artikelen.</p>
+      ) : (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal>
+          {posts.map((p: any) => (
+            <a href={`/blog/${p.slug}`} class="card card-hover p-0 overflow-hidden group">
+              <div class="aspect-[16/10] img-zoom bg-[var(--color-mist)]">
+                <img src={p.image} alt={p.imageAlt ?? p.title} loading="lazy" class="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <div class="text-xs uppercase tracking-wider font-semibold text-[var(--color-coral)]">{fmtDate(p.date)}</div>
+                <h2 class="text-xl font-display mt-2 leading-snug" style="font-weight: 600;">{p.title}</h2>
+                <p class="mt-3 text-[15px] text-[var(--color-ink-soft)] truncate-3">{p.description}</p>
+                <div class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-sea)] group-hover:text-[var(--color-coral)] transition-colors">
+                  Lees verder
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

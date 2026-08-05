@@ -25,3 +25,5 @@ KLOPT_NIET.md
 
 # Originele losse bron-afbeelding (kopie staat in public/images/)
 /plattegrond_recreatiebedrijf+boot_hr+2.jpg
+.vercel
+.env*

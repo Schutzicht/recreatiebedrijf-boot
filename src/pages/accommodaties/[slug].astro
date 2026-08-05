@@ -8,6 +8,7 @@ export function getStaticPaths() {
 
 const { acc } = Astro.props;
 const others = accommodations.filter(a => a.slug !== acc.slug).slice(0, 3);
+const gallery: string[] = (acc as any).gallery ?? [];
 ---
 <Layout title={acc.name} description={acc.short}>
 
@@ -20,7 +21,7 @@ const others = accommodations.filter(a => a.slug !== acc.slug).slice(0, 3);
             Alle accommodaties
           </a>
           <span class="eyebrow eyebrow-dark mb-4">{acc.eyebrow}</span>
-          <h1 class="text-[2.4rem] sm:text-5xl lg:text-6xl text-balance leading-[1.04]">{acc.name}</h1>
+          <h1 class="heading-hero text-balance">{acc.name}</h1>
           <p class="mt-5 text-lg text-[var(--color-ink-soft)] text-pretty max-w-xl">{acc.short}</p>
           <div class="mt-7 flex flex-wrap gap-2">
             {acc.badges.map(b => <span class="chip chip-sand">{b}</span>)}
@@ -48,12 +49,11 @@ const others = accommodations.filter(a => a.slug !== acc.slug).slice(0, 3);
         </div>
 
         <div class="lg:col-span-6" data-reveal>
-          <div class="polaroid rotate-right max-w-full">
-            <div class="polaroid-img aspect-[4/3] lg:aspect-[5/4]">
-              <img src={acc.image} alt={acc.name} loading="lazy"/>
+          <figure>
+            <div class="rounded-[1.75rem] overflow-hidden aspect-[4/3] lg:aspect-[5/4] bg-[var(--color-mist)] shadow-[0_50px_90px_-40px_rgba(20,57,69,0.5)]">
+              <img src={acc.image} alt={acc.name} loading="lazy" class="w-full h-full object-cover"/>
             </div>
-            <div class="polaroid-caption">{acc.eyebrow}</div>
-          </div>
+          </figure>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ const others = accommodations.filter(a => a.slug !== acc.slug).slice(0, 3);
       <div class="grid lg:grid-cols-12 gap-12">
         <div class="lg:col-span-7" data-reveal>
           <span class="eyebrow mb-4">Wat je kunt verwachten</span>
-          <h2 class="text-3xl lg:text-4xl text-balance">Over {acc.name.toLowerCase()}.</h2>
+          <h2 class="heading-lg text-balance">Over {acc.name.toLowerCase()}.</h2>
           <p class="mt-5 text-[var(--color-ink-soft)] text-lg leading-relaxed text-pretty">{acc.description}</p>
 
           <h3 class="text-xl font-display mt-10 mb-4">Voorzieningen</h3>
@@ -103,9 +103,9 @@ const others = accommodations.filter(a => a.slug !== acc.slug).slice(0, 3);
                 <div class="text-3xl font-display font-medium text-[var(--color-sea-deep)]">{acc.priceFrom}</div>
               </div>
               <p class="mt-3 text-sm text-[var(--color-ink-mute)]">
-                In de demo tonen we de boekingsflow nog niet. In de live versie komt hier de directe beschikbaarheidskalender.
+                Stuur ons je gewenste aankomst- en vertrekdatum, dan laten we je snel weten of dit verblijf vrij is.
               </p>
-              <a href="/reserveren" class="btn btn-coral w-full mt-5">Bekijk beschikbaarheid</a>
+              <a href="/reserveren" class="btn btn-coral w-full mt-5">Vraag beschikbaarheid aan</a>
               <a href="/contact" class="btn btn-outline w-full mt-2">Stel een vraag</a>
 
               <div class="mt-6 pt-6 border-t border-[var(--color-line-soft)] space-y-3 text-sm">
@@ -129,12 +129,104 @@ const others = accommodations.filter(a => a.slug !== acc.slug).slice(0, 3);
     </div>
   </section>
 
+  {gallery.length > 0 && (
+    <section class="section pt-0">
+      <div class="container-x">
+        <div class="max-w-2xl mb-8 sm:mb-10" data-reveal>
+          <span class="eyebrow mb-3">In beeld</span>
+          <h2 class="heading-lg text-balance">Een kijkje bij {acc.name.toLowerCase()}.</h2>
+        </div>
+        <div class="gallery grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4" data-reveal>
+          {gallery.map((src, i) => (
+            <button
+              type="button"
+              class="gallery-item group relative block rounded-2xl overflow-hidden aspect-[4/3] bg-[var(--color-mist)] img-zoom cursor-zoom-in"
+              data-index={i}
+              aria-label={`Bekijk foto ${i + 1} van ${acc.name}`}
+            >
+              <img src={src} alt={`${acc.name} foto ${i + 1}`} loading="lazy" class="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Lightbox -->
+      <div
+        id="lightbox"
+        class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4 sm:p-8"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Fotogalerij ${acc.name}`}
+      >
+        <button type="button" data-lb="close" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Sluiten">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" data-lb="prev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Vorige foto">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" data-lb="next" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors" aria-label="Volgende foto">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <figure class="max-w-5xl w-full">
+          <img id="lightbox-img" src="" alt="" class="w-full max-h-[80vh] object-contain rounded-lg mx-auto" />
+          <figcaption id="lightbox-count" class="mt-4 text-center text-sm text-white/70"></figcaption>
+        </figure>
+      </div>
+
+      <script is:inline define:vars={{ images: gallery, accName: acc.name }}>
+        (function () {
+          const lb = document.getElementById('lightbox');
+          if (!lb || !images.length) return;
+          const imgEl = document.getElementById('lightbox-img');
+          const countEl = document.getElementById('lightbox-count');
+          let idx = 0;
+
+          function render() {
+            imgEl.src = images[idx];
+            imgEl.alt = accName + ' foto ' + (idx + 1);
+            countEl.textContent = (idx + 1) + ' / ' + images.length;
+          }
+          function open(i) {
+            idx = i;
+            render();
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+            lb.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+          }
+          function close() {
+            lb.classList.add('hidden');
+            lb.classList.remove('flex');
+            lb.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          }
+          function step(d) { idx = (idx + d + images.length) % images.length; render(); }
+
+          document.querySelectorAll('.gallery-item').forEach((btn) => {
+            btn.addEventListener('click', () => open(parseInt(btn.dataset.index, 10) || 0));
+          });
+          lb.querySelector('[data-lb="close"]').addEventListener('click', close);
+          lb.querySelector('[data-lb="prev"]').addEventListener('click', () => step(-1));
+          lb.querySelector('[data-lb="next"]').addEventListener('click', () => step(1));
+          lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+          document.addEventListener('keydown', (e) => {
+            if (lb.classList.contains('hidden')) return;
+            if (e.key === 'Escape') close();
+            else if (e.key === 'ArrowLeft') step(-1);
+            else if (e.key === 'ArrowRight') step(1);
+          });
+        })();
+      </script>
+    </section>
+  )}
+
   <section class="section bg-[var(--color-sand-soft)] border-y border-[var(--color-line)]">
     <div class="container-x">
       <div class="flex items-end justify-between mb-10">
         <div>
           <span class="eyebrow mb-3">Andere verblijven</span>
-          <h2 class="text-3xl lg:text-4xl">Misschien past dit ook bij je.</h2>
+          <h2 class="heading-lg">Misschien past dit ook bij je.</h2>
         </div>
         <a href="/accommodaties" class="hidden sm:inline-flex btn btn-outline">Alle accommodaties</a>
       </div>

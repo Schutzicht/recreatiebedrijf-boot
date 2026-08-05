@@ -17,32 +17,97 @@ const facilities = [
   { letter: 'L', name: 'Laadpaal auto', desc: 'Twee laadpunten voor elektrische auto\'s' },
   { letter: 'M', name: 'Paardenwei', desc: 'Aan de oostgrens van het terrein' },
 ];
+
+// Posities van de letters op de kaart, in procenten van de afbeelding.
+// Sommige voorzieningen staan op meerdere plekken (C, D, L).
+const markers = [
+  { letter: 'A', x: 50.3, y: 69.7 },
+  { letter: 'B', x: 55.9, y: 30.0 },
+  { letter: 'C', x: 29.0, y: 32.1 },
+  { letter: 'C', x: 68.5, y: 48.4 },
+  { letter: 'D', x: 28.3, y: 36.2 },
+  { letter: 'D', x: 65.7, y: 46.5 },
+  { letter: 'D', x: 43.5, y: 63.2 },
+  { letter: 'E', x: 30.5, y: 54.8 },
+  { letter: 'F', x: 33.4, y: 16.3 },
+  { letter: 'G', x: 58.5, y: 52.9 },
+  { letter: 'H', x: 41.3, y: 39.7 },
+  { letter: 'I', x: 40.0, y: 33.5 },
+  { letter: 'J', x: 29.8, y: 38.6 },
+  { letter: 'K', x: 74.0, y: 58.0 },
+  { letter: 'L', x: 37.5, y: 39.4 },
+  { letter: 'L', x: 73.8, y: 78.2 },
+  { letter: 'M', x: 88.5, y: 44.7 },
+];
+
+// Rijen van de gedrukte FACILITEITEN-legenda ín de kaartafbeelding (linkerpaneel),
+// zodat die ook klikbaar zijn. y = middelpunt van de rij in procenten; C is hoger
+// vanwege de extra tekstregels eronder.
+const legendRows = [
+  { letter: 'A', y: 50.6 },
+  { letter: 'B', y: 53.3 },
+  { letter: 'C', y: 58.6, h: 7.9 },
+  { letter: 'D', y: 64.7 },
+  { letter: 'E', y: 67.5 },
+  { letter: 'F', y: 70.3 },
+  { letter: 'G', y: 73.2 },
+  { letter: 'H', y: 76.0 },
+  { letter: 'I', y: 78.9 },
+  { letter: 'J', y: 81.7 },
+  { letter: 'K', y: 84.5 },
+  { letter: 'L', y: 87.5 },
+  { letter: 'M', y: 90.4 },
+];
+
+const nameByLetter = Object.fromEntries(facilities.map(f => [f.letter, f.name]));
 ---
 <Layout title="Plattegrond" description="Plattegrond van Recreatiebedrijf Boot in Noordwelle. Bekijk waar de kampeerplaatsen, appartementen, safaritent en alle voorzieningen liggen.">
   <PageHero
     eyebrow="Onze camping in beeld"
     title="Plattegrond"
-    description="Zo ziet ons terrein eruit. De accommodaties zijn in de legenda gekleurd; A t/m M markeren de voorzieningen."
+    description="Zo ziet ons terrein eruit. Tik op een letter op de kaart, of op een voorziening in de lijst, en je ziet meteen waar het zit."
   />
 
   <section class="section">
     <div class="container-x">
-      <div class="rounded-3xl overflow-hidden border border-[var(--color-line)] bg-[var(--color-sand-soft)] shadow-[0_24px_60px_-24px_rgba(20,57,69,0.18)]" data-reveal>
+      <div class="relative rounded-3xl overflow-hidden border border-[var(--color-line)] bg-[var(--color-sand-soft)] shadow-[0_24px_60px_-24px_rgba(20,57,69,0.18)]" data-reveal>
         <img
           src="/images/plattegrond.jpg"
           alt="Plattegrond Recreatiebedrijf Boot Noordwelle"
           class="w-full h-auto block"
           loading="lazy"
         />
+        {markers.map(m => (
+          <button
+            type="button"
+            class="map-spot"
+            style={`left: ${m.x}%; top: ${m.y}%;`}
+            data-map-letter={m.letter}
+            aria-label={`${m.letter}: ${nameByLetter[m.letter]}`}
+            title={nameByLetter[m.letter]}
+          ></button>
+        ))}
+        {legendRows.map(r => (
+          <button
+            type="button"
+            class="map-row"
+            style={`top: ${r.y}%; height: ${r.h ?? 2.9}%;`}
+            data-map-letter={r.letter}
+            aria-label={`Legenda ${r.letter}: ${nameByLetter[r.letter]}`}
+            title={nameByLetter[r.letter]}
+          ></button>
+        ))}
       </div>
+      <p class="mt-4 text-sm text-[var(--color-ink-mute)]" data-reveal>
+        Tip: beweeg over of tik op een letter op de kaart, dan licht de bijbehorende voorziening hieronder op. Andersom werkt ook.
+      </p>
 
       <div class="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-8 lg:gap-12" data-reveal>
         <div class="lg:col-span-5">
           <span class="dateline mb-5">Faciliteiten op het terrein</span>
-          <h2 class="text-balance leading-[1.05] tracking-tight font-display"
-              style="font-size: clamp(1.75rem, 3.8vw, 2.5rem); font-weight: 500;">
+          <h2 class="heading-lg text-balance">
             Alles wat je tijdens je verblijf
-            <span class="italic-display text-[var(--color-coral)]" style="font-weight: 500;">nodig hebt</span>.
+            <span class="text-[var(--color-coral)]">nodig hebt</span>.
           </h2>
           <p class="mt-5 text-[var(--color-ink-soft)] text-base sm:text-lg max-w-md">
             Twee verwarmde sanitairgebouwen, speeltuin, dierenweide en laadpalen voor je elektrische auto: dat hoort er allemaal bij.
@@ -50,14 +115,16 @@ const facilities = [
         </div>
 
         <div class="lg:col-span-7">
-          <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-4">
+          <ul class="grid sm:grid-cols-2 gap-x-4 gap-y-1.5">
             {facilities.map(f => (
-              <li class="flex items-start gap-3.5">
-                <span class="shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-[var(--color-line)] font-display font-semibold text-sm text-[var(--color-sea-deep)]">{f.letter}</span>
-                <div>
-                  <div class="text-sm font-semibold text-[var(--color-sea-deep)]">{f.name}</div>
-                  <div class="text-xs text-[var(--color-ink-mute)] mt-0.5 leading-snug">{f.desc}</div>
-                </div>
+              <li>
+                <button type="button" class="legend-item" data-legend-letter={f.letter}>
+                  <span class="legend-badge">{f.letter}</span>
+                  <span>
+                    <span class="block text-sm font-semibold text-[var(--color-sea-deep)]">{f.name}</span>
+                    <span class="block text-xs text-[var(--color-ink-mute)] mt-0.5 leading-snug">{f.desc}</span>
+                  </span>
+                </button>
               </li>
             ))}
           </ul>
@@ -65,4 +132,178 @@ const facilities = [
       </div>
     </div>
   </section>
+
+  <style>
+    .map-spot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 3.2%;
+      min-width: 26px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition:
+        border-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1),
+        background-color 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .map-spot[data-active="true"] {
+      border-color: var(--color-brand-green);
+      background: color-mix(in srgb, var(--color-brand-green) 14%, transparent);
+      box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--color-brand-green) 22%, transparent),
+        0 0 20px color-mix(in srgb, var(--color-brand-green) 55%, transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .map-spot:hover {
+        border-color: var(--color-brand-green);
+        background: color-mix(in srgb, var(--color-brand-green) 14%, transparent);
+        box-shadow:
+          0 0 0 4px color-mix(in srgb, var(--color-brand-green) 22%, transparent),
+          0 0 20px color-mix(in srgb, var(--color-brand-green) 55%, transparent);
+      }
+    }
+    .map-spot:focus-visible {
+      outline: 2px solid var(--color-sea);
+      outline-offset: 2px;
+    }
+    .map-spot[data-active="true"]::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 2px solid color-mix(in srgb, var(--color-brand-green) 65%, transparent);
+      animation: spotPulse 1.5s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+      pointer-events: none;
+    }
+    @keyframes spotPulse {
+      from { transform: scale(1); opacity: 0.9; }
+      to { transform: scale(1.8); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .map-spot[data-active="true"]::after { animation: none; opacity: 0; }
+    }
+
+    .map-row {
+      position: absolute;
+      left: 2%;
+      width: 20.5%;
+      transform: translateY(-50%);
+      border-radius: 10px;
+      border: 1.5px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition:
+        border-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
+        background-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .map-row[data-active="true"] {
+      border-color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .map-row:hover {
+        border-color: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.22);
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
+      }
+    }
+    .map-row:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 2px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      width: 100%;
+      text-align: left;
+      padding: 0.625rem 0.75rem;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition:
+        background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 160ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .legend-item[data-active="true"] {
+      background: var(--color-mist);
+      border-color: var(--color-mist-deep);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .legend-item:hover {
+        background: var(--color-mist);
+        border-color: var(--color-mist-deep);
+      }
+    }
+    .legend-item:focus-visible {
+      outline: 2px solid var(--color-sea);
+      outline-offset: 2px;
+    }
+    .legend-item[data-active="true"] .legend-badge {
+      background: var(--color-brand-green);
+      border-color: var(--color-brand-green);
+      color: white;
+    }
+
+    .legend-badge {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid var(--color-line);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--color-sea-deep);
+      transition:
+        background-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 160ms cubic-bezier(0.23, 1, 0.32, 1),
+        color 160ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+  </style>
+
+  <script is:inline>
+    (() => {
+      const spots = [...document.querySelectorAll('[data-map-letter]')];
+      const items = [...document.querySelectorAll('[data-legend-letter]')];
+      if (!spots.length || !items.length) return;
+      let pinned = null;
+
+      function apply(letter) {
+        spots.forEach(s => { s.dataset.active = String(!!letter && s.dataset.mapLetter === letter); });
+        items.forEach(i => { i.dataset.active = String(!!letter && i.dataset.legendLetter === letter); });
+      }
+      function enter(letter) { if (!pinned) apply(letter); }
+      function leave() { if (!pinned) apply(null); }
+      function toggle(letter, fromMap) {
+        pinned = pinned === letter ? null : letter;
+        apply(pinned);
+        if (pinned && fromMap) {
+          const item = items.find(i => i.dataset.legendLetter === pinned);
+          if (item) item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      }
+
+      function bind(el, letter, fromMap) {
+        el.addEventListener('mouseenter', () => enter(letter));
+        el.addEventListener('mouseleave', leave);
+        el.addEventListener('focus', () => enter(letter));
+        el.addEventListener('blur', leave);
+        el.addEventListener('click', () => toggle(letter, fromMap));
+      }
+      spots.forEach(s => bind(s, s.dataset.mapLetter, true));
+      items.forEach(i => bind(i, i.dataset.legendLetter, false));
+    })();
+  </script>
 </Layout>
