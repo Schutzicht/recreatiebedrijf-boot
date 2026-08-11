@@ -38,7 +38,6 @@ export const navigation = [
   { label: 'Plattegrond', href: '/plattegrond' },
   { label: 'Omgeving', href: '/omgeving' },
   { label: 'Arrangementen', href: '/arrangementen' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -62,17 +61,20 @@ export const accommodations = [
     ],
     badges: ['Eigen 10A stroom', 'Watertap met afvoer', 'Honden welkom'],
     description:
-      'Twee gezellige velden met in totaal genoeg ruimte om écht weg te zijn. Op veld 1 vind je 10 royale kampeerplaatsen van zo\'n 150 m², op veld 2 staan plekken van gemiddeld 370 m². Iedere plek heeft een eigen wateraansluiting met afvoer en een 10A stroompunt. Wifi is gratis.',
+      'Onze kampeerplaatsen behoren tot de ruimste van Schouwen-Duiveland. Of je nu met caravan, camper of tent komt, je beschikt over veel privacy en alle comfort. De ruime plaatsen vanaf 150 m² hebben een eigen stroomaansluiting, watertappunt en afvoer. De verwarmde sanitairgebouwen worden dagelijks zorgvuldig onderhouden, en voor extra comfort kun je privé-sanitair reserveren.',
     facilities: [
       'Twee verwarmde sanitairgebouwen met douches, toiletten en afwasplek',
-      'Te huren privé-sanitair op veld 1',
+      'Gratis warm water',
+      'Te huren privé-sanitair',
       'Eigen stroomaansluiting (10A) en watertap met afvoer per plek',
       'Verharde parkeerplek bij iedere kampeerplaats',
       'Aparte parkeerplaats, cameratoezicht en gescheiden afvalinzameling',
-      'Chemisch toilet stortplaats',
+      'Stortplaats voor chemisch toilet en grijs water voor campers',
       'Gratis wifi en Digitenne-ontvangst',
+      'Twee laadpunten voor elektrische auto\'s',
     ],
     pets: 'Honden welkom (€ 3,00 p.n., max. 2 in overleg)',
+    checkin: 'Inchecken vanaf 13:30, uitchecken voor 12:00',
   },
   {
     slug: 'appartementen',
@@ -90,21 +92,24 @@ export const accommodations = [
     ],
     badges: ['Eigen keuken', 'Badkamer met douche', 'Wifi gratis'],
     description:
-      'Onze zeven appartementen heten Alikruik, Krab, Kreeft, Mossel, Oester, Wulk en Zeester. Vier ervan zijn voor twee personen, drie voor maximaal vijf. Elk appartement heeft een eigen keuken, woonkamer met zithoek, badkamer met douche en LCD-tv. Verwarming via gas of cv.',
+      'Onze zeven appartementen zijn ondergebracht in de oude boerenschuur van het voormalige boerenbedrijf en heten Alikruik, Krab, Kreeft, Mossel, Oester, Wulk en Zeester. Vier ervan zijn voor twee personen, drie voor maximaal vijf. Ideaal voor een weekend weg of een langere vakantie: vanuit je appartement wandel of fiets je zo naar het strand, de duinen en gezellige plaatsen zoals Renesse en Zierikzee.',
     facilities: [
-      'Volledig ingerichte keuken met kookplaat, koelkast en koffiezetter',
+      'Volledig ingerichte keuken met kookplaat, koelkast, waterkoker en filter-koffiezetter',
       'Woonkamer met zitje en LCD-tv',
       'Badkamer met douche, toilet en wastafel',
       'Centrale verwarming of gaskachel',
+      'Eigen terras',
+      'Babybedje en kinderstoel op aanvraag',
       'Gratis wifi op het hele terrein',
       'Laadpunt voor elektrische auto\'s',
     ],
     pets: 'Maximaal 2 honden per appartement (€ 3,00 p.n.)',
+    checkin: 'Inchecken vanaf 15:00, uitchecken voor 10:00',
   },
   {
     slug: 'safaritent',
     name: 'Safaritent',
-    short: 'Avontuurlijk slapen op een vlonder met 20 m² overdekte veranda.',
+    short: 'Kamperen met het comfort van thuis: compleet ingericht glampinggevoel.',
     capacity: '4 – 5 personen',
     sizeRange: '45 m² + 20 m² veranda',
     priceFrom: 'Vanaf € 55 p.n.',
@@ -117,9 +122,10 @@ export const accommodations = [
     ],
     badges: ['Tweepersoons hemelbed', 'Pelletkachel', 'Veranda 20 m²'],
     description:
-      'Slapen onder doek, maar dan luxe. Onze safaritent staat op een houten vlonder en biedt plek aan 4 tot 5 personen, ideaal voor gezinnen of een stel met kinderen. Binnen vind je een tweepersoons hemelbed, een stapelbed en een eenpersoonsbed. Voor frisse avonden is er een pelletkachel.',
+      'Kamperen met het comfort van thuis: je geniet van de sfeer van kamperen zonder zelf een tent op te zetten. Onze safaritent staat op een houten vlonder en biedt plek aan 4 tot 5 personen, ideaal voor gezinnen of een stel met kinderen. Binnen vind je een tweepersoons hemelbed, een stapelbed en een eenpersoonsbed. Voor frisse avonden is er een pelletkachel.',
     facilities: [
       'Volledige keuken: 4-pits gas, koelkast, magnetron, koffiezetter, waterkoker',
+      'Woonkamer met zitje en smart-tv',
       'Badkamer met bad, wastafel en toilet',
       'Veranda van 20 m² met buitenmeubilair',
       'Pelletkachel voor de koelere avonden',
@@ -127,6 +133,7 @@ export const accommodations = [
       'Babybedje en kinderbedje op aanvraag',
     ],
     pets: 'Honden welkom (€ 3,00 p.n.)',
+    checkin: 'Inchecken vanaf 15:00, uitchecken voor 10:00',
   },
   {
     slug: 'huisje-weltevreden',

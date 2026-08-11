@@ -45,7 +45,7 @@ Elk artikel heeft: target keyword in titel, eerste alinea en koppen waar natuurl
 - **Canonical + Open Graph**: elke pagina heeft een canonical-URL, og:image, og:url, og:site_name.
 - **Structured data**: Campground-schema (JSON-LD) op de homepage met NAW, geo-coordinaten, petsAllowed; BlogPosting-schema op elk blogartikel.
 - **Meta descriptions**: per pagina en per artikel, max 155 tekens, met keyword.
-- **Interne linkstructuur**: blog in hoofdnavigatie en footer; artikelen linken naar accommodatie- en servicepagina's en terug.
+- **Interne linkstructuur**: artikelen linken naar accommodatie- en servicepagina's en terug. Het blog staat bewust NIET in het hoofdmenu (keuze 10 aug 2026: menu rustig houden voor bezoekers) maar wel in de footer, de sitemap en de onderlinge links; daarmee blijven de artikelen volledig crawlbaar en indexeerbaar voor Google en AI-zoekmachines. Verwijder de footer-link niet, anders worden de artikelen wees-pagina's.
 
 ## Bij domeinkoppeling (belangrijk)
 
